@@ -1,0 +1,9 @@
+;<ip address>/*.* will be FTP'd to <root>/<foldername>
+;syntax:
+;   root=<root>
+;   <ip address>=<foldername>
+
+root=C:\Users\Public\Downloads
+192.168.133.11=R01
+192.168.133.12=R02
+192.168.133.13=R03

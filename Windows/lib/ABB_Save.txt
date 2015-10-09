@@ -1,0 +1,8 @@
+user
+password
+bin
+prompt
+mkdir bpr_modules
+cd bpr_modules
+mget *.*
+bye

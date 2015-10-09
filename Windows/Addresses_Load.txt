@@ -1,0 +1,9 @@
+;<filepath>/*.* will be FTP'd to <ip address>
+;syntax: <filepath>=<ip address>
+
+Y:\Desktop\Loadset\bpr_modules=192.168.133.11
+Y:\Desktop\Loadset\R01=192.168.133.11
+Y:\Desktop\Loadset\bpr_modules=192.168.133.12
+Y:\Desktop\Loadset\R02=192.168.133.12
+Y:\Desktop\Loadset\bpr_modules=192.168.133.13
+Y:\Desktop\Loadset\R03=192.168.133.13
