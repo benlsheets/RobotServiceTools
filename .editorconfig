@@ -10,8 +10,8 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[Scripts/Windows/*]
+[Windows/*]
 end_of_line = crlf
 
-[Scripts/Windows/*/*]
+[Windows/*/*]
 end_of_line = crlf
