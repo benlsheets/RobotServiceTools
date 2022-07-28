@@ -1,23 +1,29 @@
-cd ~/Downloads
-rm */system.xml
-rm -rf */BACKINFO
-rm -rf */CS
-for i in *; do mv $i/RAPID/TASK1/PROGMOD/*.mod $i; done
-for i in *; do mv $i/RAPID/TASK2/PROGMOD/*.mod $i; done
-for i in *; do mv $i/RAPID/TASK3/PROGMOD/*.mod $i; done
-for i in *; do mv $i/RAPID/TASK4/PROGMOD/*.mod $i; done
-for i in *; do mv $i/RAPID/TASK5/PROGMOD/*.mod $i; done
-for i in *; do mv $i/RAPID/TASK6/PROGMOD/*.mod $i; done
-for i in *; do mv $i/RAPID/TASK1/SYSMOD/*.sys $i; done
-for i in *; do mv $i/RAPID/TASK3/SYSMOD/CommRoutines.sys $i; done
-for i in *; do git diff --no-index --quiet $i/RobotRoutines.sys ~/Desktop/Loadset/bpr_modules/RobotRoutines.sys && rm $i/RobotRoutines.sys; done
-for i in *; do git diff --no-index --quiet $i/CommRoutines.sys ~/Desktop/Loadset/bpr_modules/CommRoutines.sys && rm $i/CommRoutines.sys; done
-for i in *; do git diff --no-index --quiet $i/DataStructures.sys ~/Desktop/Loadset/bpr_modules/DataStructures.sys && rm $i/DataStructures.sys; done
-for i in *; do git diff --no-index --quiet $i/Library.sys ~/Desktop/Loadset/bpr_modules/Library.sys && rm $i/Library.sys; done
-for i in *; do git diff --no-index --quiet $i/Sequencer.sys ~/Desktop/Loadset/bpr_modules/Sequencer.sys && rm $i/Sequencer.sys; done
-for i in *; do git diff --no-index --quiet $i/BeltMonitor.mod ~/Desktop/Loadset/bpr_modules/BeltMonitor.mod && rm $i/BeltMonitor.mod; done
-for i in *; do git diff --no-index --quiet $i/InterruptTask.mod ~/Desktop/Loadset/bpr_modules/InterruptTask.mod && rm $i/InterruptTask.mod; done
-for i in *; do git diff --no-index --quiet $i/PollTask.mod ~/Desktop/Loadset/bpr_modules/PollTask.mod && rm $i/PollTask.mod; done
-rm */user.sys
-rm -rf */RAPID
-rm -rf */HOME
+for robot_folder in *_BACKUP_*; do \
+    for task_folder in $robot_folder/RAPID/TASK*; do \
+        for prog_module in $task_folder/PROGMOD/*; do \
+            git diff --no-index --quiet common_modules/$(basename "$prog_module") $prog_module && rm $prog_module; \
+        done
+        for sys_module in $task_folder/SYSMOD/*; do \
+            git diff --no-index --quiet common_modules/$(basename "$sys_module") $sys_module && rm $sys_module; \
+        done
+    done
+
+    mv $robot_folder/RAPID/TASK*/PROGMOD/* $robot_folder
+    rm -rf $robot_folder/RAPID/TASK*/PROGMOD
+
+    mv $robot_folder/RAPID/TASK1/SYSMOD/* $robot_folder
+    rm -rf $robot_folder/RAPID/TASK1
+
+    for task_folder in $robot_folder/RAPID/TASK*; do \
+        for sys_module in $task_folder/SYSMOD/*; do \
+            git diff --no-index --quiet $robot_folder/$(basename "$sys_module") $sys_module && rm $sys_module; \
+        done
+    done
+
+    rm $robot_folder/system.xml; \
+    rm -rf $robot_folder/BACKINFO; \
+    rm -rf $robot_folder/CS; \
+    rm -rf $robot_folder/HOME; \
+    # rm -rf $robot_folder/RAPID; \
+    mv $robot_folder ${robot_folder%%_BACKUP_*}; \
+done
